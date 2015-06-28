@@ -12,9 +12,6 @@ img {
     height: auto;
 }
 input {
-    display: block;
-    margin-bottom: 20px;
-    width: 100%;
     height: 18px;
     border: 1px solid #eee;
     border-radius: 2px;
@@ -27,22 +24,72 @@ input {
     max-width: 800px;
     margin: auto;
 }
+.meta-input {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+#image-id {
+    width: 300px;
+    margin-right: 20px;
+}
+.images-wrapper {
+    overflow-x: scroll;
+}
+#images {
+    width: 3000px;
+}
+#images img {
+    float: left;
+    margin-left: 5px;
+}
         </style>
     </head>
     <body>
         <div class="wrapper">
             <h1>Graduation Photos from Island Photography</h1>
             <p>Copy and paste the grey text under the image that you want to retrieve, into the box below.</p>
-            <input type="text" id="image-id" placeholder="The grey text. For example: 26815883-00001-0005">
+            <div class="meta-input">
+                <input type="text" id="image-id" placeholder="The grey text. For example: 26815883-00001-0005">
+                Show all portraits? <input type="checkbox" id="image-all">
+            </div>
             <img id="image-holder" class="center-block" src="grey-text.png" alt="Grey Text Under Image" />
+            <div class="images-wrapper">
+                <div id="images">
+                </div>
+            </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>
+function pad(str, max) {
+    str = str.toString();
+    return str.length < max ? pad("0" + str, max) : str;
+}
 $('#image-id').keyup(loadImage);
+$('#image-all').change(togglePortraits);
+function togglePortraits() {
+    if ($('#image-all').is(":checked")) {
+        $('#image-holder').hide();
+        $('#images').show();
+    }
+    else {
+        $('#images').hide();
+        $('#image-holder').show();
+    }
+}
 function loadImage() {
     var id = $('#image-id').val();
-        var url = "http://images.partypics.com/events/" + id.replace(/-/g, "/") + ".jpg";
-        $('#image-holder').attr('src', url).show();
+    var tokens = id.split("-");
+    var url = "http://images.partypics.com/events/" + id.replace(/-/g, "/") + ".jpg";
+    $('#image-holder').attr('src', url).show();
+    if (parseInt(tokens[1]) > 4) {
+        $('#images').html('');
+        for (var i=5; i<=10; i++) {
+            $('#images').append('<img src="http://images.partypics.com/events/' + tokens[0] + "/" + pad(i, 5) + "/" + pad(tokens[2], 4) + '.jpg">');
+        }
+        togglePortraits();
+    }
 }
         </script>
     </body>
