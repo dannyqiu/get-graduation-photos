@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Retrieve Graduation Photos</title>
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+        <style>
+body {
+    font-family: "Open Sans", Arial, sans-serif;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+input {
+    display: block;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 18px;
+    border: 1px solid #eee;
+    border-radius: 2px;
+}
+.center-block {
+    display: block;
+    margin: auto;
+}
+.wrapper {
+    max-width: 800px;
+    margin: auto;
+}
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>Graduation Photos from Island Photography</h1>
+            <p>Copy and paste the grey text under the image that you want to retrieve, into the box below.</p>
+            <input type="text" id="image-id" placeholder="The grey text. For example: 26815883-00001-0005">
+            <img id="image-holder" class="center-block" src="grey-text.png" alt="Grey Text Under Image" />
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>
+$('#image-id').keyup(loadImage);
+function loadImage() {
+    var id = $('#image-id').val();
+    var url = "http://images.partypics.com/events/" + id.replace(/-/g, "/");
+    $('#image-holder').attr('src', url);
+}
+        </script>
+    </body>
+</html>
