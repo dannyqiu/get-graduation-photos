@@ -73,7 +73,9 @@ function pad(str, max) {
 $('#image-id').keyup(loadImage);
 $('#image-all').change(togglePortraits);
 function togglePortraits() {
-    if ($('#image-all').is(":checked")) {
+    var id = $('#image-id').val();
+    var tokens = id.split("-");
+    if (parseInt(tokens[1]) > 4 && $('#image-all').is(":checked")) {
         $('#image-holder').hide();
         $('#images').show();
     }
@@ -87,8 +89,8 @@ function loadImage() {
     var tokens = id.split("-");
     var url = "http://images.partypics.com/events/" + id.replace(/-/g, "/") + ".jpg";
     $('#image-holder').attr('src', url).show();
+    $('#images').html('');
     if (parseInt(tokens[1]) > 4) {
-        $('#images').html('');
         for (var i=5; i<=10; i++) {
             $('#images').append('<img src="http://images.partypics.com/events/' + tokens[0] + "/" + pad(i, 5) + "/" + pad(tokens[2], 4) + '.jpg">');
         }
