@@ -41,8 +41,8 @@ input {
 $('#image-id').keyup(loadImage);
 function loadImage() {
     var id = $('#image-id').val();
-    var url = "http://images.partypics.com/events/" + id.replace(/-/g, "/");
-    $('#image-holder').attr('src', url);
+        var url = "http://images.partypics.com/events/" + id.replace(/-/g, "/") + ".jpg";
+        $('#image-holder').attr('src', url).show();
 }
         </script>
     </body>
