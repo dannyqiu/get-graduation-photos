@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Retrieve Graduation Photos</title>
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+        <style>
+body {
+    font-family: "Open Sans", Arial, sans-serif;
+}
+.wrapper {
+    max-width: 800px;
+    margin: auto;
+}
+#images {
+    display: table;
+    margin: auto;
+    max-width: 760px;
+}
+.cell { 
+    float: left;
+}
+.portrait {
+    max-width: 180px !important;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.meta {
+    text-align: center;
+    line-height: 12px;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>All Graduation Photos</h1>
+            <p>Below is a listing of everyone's graduation photos. Scroll down to find yours. Then copy the ID under it and paste it into the box on <a href="index.html">this page</a> to retrieve all your photos.</p>
+            <div id="images"></div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>
+function pad(str, max) {
+    str = str.toString();
+    return str.length < max ? pad("0" + str, max) : str;
+}
+window.maxImages = 786;
+window.count = 1;
+var ratio = 425.0 / 641;
+var imageWidth = 180;
+var imageHeight = Math.floor(imageWidth / ratio);
+$(document).ready(function() {
+    for (var i=0; i<Math.round($(window).height() / imageHeight); i++) {
+        loadPhotos();
+    }
+});
+$(window).scroll(loadPhotos);
+function loadPhotos() {
+    contentHeight = $('#images').outerHeight();
+    y = $(window).scrollTop() + $(window).height();
+    if (y >= contentHeight) {
+        for (var i=0; i<Math.floor($('.wrapper').width()/imageWidth) && window.count <= window.maxImages; i++) {
+            $('#images').append('<div class="cell"><img class="portrait" src="http://images.partypics.com/events/26815883/00007/' + pad(window.count, 4) + '.jpg" width=' + imageWidth + ' height=' + imageHeight + '><div class="meta">26815883-00007-' + pad(window.count, 4) + '</div></div>');
+            window.count++;
+        }
+    }
+    return window.count-1; // Returns total number of images loaded
+}
+        </script>
+    </body>
+</head>
