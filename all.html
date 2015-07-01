@@ -7,6 +7,9 @@
 body {
     font-family: "Open Sans", Arial, sans-serif;
 }
+a {
+    color: #00aeef;
+}
 .wrapper {
     max-width: 800px;
     margin: auto;
@@ -36,7 +39,7 @@ body {
     <body>
         <div class="wrapper">
             <h1>All Graduation Photos</h1>
-            <p>Below is a listing of everyone's graduation photos. Scroll down to find yours. Then copy the ID under it and paste it into the box on <a href="index.html">this page</a> to retrieve all your photos.</p>
+            <p>Below is a listing of everyone's graduation photos. Scroll down to find yours. Click on the ID under your portrait to retrieve all your photos.</p>
             <div id="images"></div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -61,7 +64,7 @@ function loadPhotos() {
     y = $(window).scrollTop() + $(window).height();
     if (y >= contentHeight) {
         for (var i=0; (i<Math.floor($('.wrapper').width()/imageWidth) || i<1) && window.count <= window.maxImages; i++) {
-            $('#images').append('<div class="cell"><img class="portrait" src="http://images.partypics.com/events/26815883/00007/' + pad(window.count, 4) + '.jpg" width=' + imageWidth + ' height=' + imageHeight + '><div class="meta">26815883-00007-' + pad(window.count, 4) + '</div></div>');
+            $('#images').append('<div class="cell"><img class="portrait" src="http://images.partypics.com/events/26815883/00007/' + pad(window.count, 4) + '.jpg" width=' + imageWidth + ' height=' + imageHeight + '><div class="meta"><a href="index.html?id=26815883-00007-' + pad(window.count, 4) + '">26815883-00007-' + pad(window.count, 4) + '</a></div></div>');
             window.count++;
         }
     }

@@ -97,6 +97,20 @@ function loadImage() {
         togglePortraits();
     }
 }
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+$(document).ready(function() {
+    var id = getParameterByName("id");
+    if (id.length > 0) {
+        $('#image-id').val(id);
+        $('#image-all').prop('checked', true);
+        loadImage();
+    }
+});
         </script>
     </body>
 </html>
