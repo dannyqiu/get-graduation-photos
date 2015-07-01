@@ -60,7 +60,7 @@ function loadPhotos() {
     contentHeight = $('#images').outerHeight();
     y = $(window).scrollTop() + $(window).height();
     if (y >= contentHeight) {
-        for (var i=0; i<Math.floor($('.wrapper').width()/imageWidth) && window.count <= window.maxImages; i++) {
+        for (var i=0; (i<Math.floor($('.wrapper').width()/imageWidth) || i<1) && window.count <= window.maxImages; i++) {
             $('#images').append('<div class="cell"><img class="portrait" src="http://images.partypics.com/events/26815883/00007/' + pad(window.count, 4) + '.jpg" width=' + imageWidth + ' height=' + imageHeight + '><div class="meta">26815883-00007-' + pad(window.count, 4) + '</div></div>');
             window.count++;
         }
